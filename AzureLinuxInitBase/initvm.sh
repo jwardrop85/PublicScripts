@@ -11,3 +11,4 @@ sudo cp azm-telegraf.conf /etc/telegraf/telegraf.conf
 sudo systemctl stop telegraf
 # start the telegraf agent on the VM to ensure it picks up the latest configuration 
 sudo systemctl start telegraf
+exit 0
