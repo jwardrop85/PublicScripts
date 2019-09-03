@@ -15,7 +15,5 @@ foreach($disk in $disks)
     $disk | New-Partition -UseMaximumSize -DriveLetter "$([char][int]$lastDriveLetterChar)"
     Format-Volume -DriveLetter "$([char][int]$lastDriveLetterChar)" -FileSystem "NTFS" -Full
 }
-
-
 Restart-Computer
 exit 0
