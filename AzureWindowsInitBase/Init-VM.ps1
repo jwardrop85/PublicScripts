@@ -4,6 +4,9 @@ Set-WinHomeLocation -GeoId 242
 Set-WinUserLanguageList -LanguageList (New-WinUserLanguageList -Language en-GB) -Force
 Set-Culture en-GB
 Start-Sleep -Seconds 40
+mkdir C:\windows\system32\config\systemprofile\AppData\Local\Temp\
+Copy-Item ./securitypolicy.inf -Destination C:\windows\system32\config\systemprofile\AppData\Local\Temp\ -Force
+Start-sleep -Seconds 10
 $currentDriveLetters=Get-Volume | Where-Object{$_.DriveLetter} | Select -ExpandProperty DriveLetter
 $lastDriveLetterChar=([int[]][char[]]$currentDriveLetters | Measure -Maximum | select -ExpandProperty Maximum)
 Get-Disk | Where-Object{$_.IsOffline -eq $true} | Set-Disk -IsOffline $false
