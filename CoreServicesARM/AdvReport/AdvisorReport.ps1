@@ -160,7 +160,7 @@ $Head = @"
 
 $body = @"
     
-    <center><h1>Azure Recommendations for Subscription: ${data.azurerm_subscription.current.display_name}</h1></center>
+    <center><h1>Azure Recommendations for Subscription: $sub</h1></center>
     <h2>Azure Advisor Recommendations Summary</h2>
     <p>A summary of the recommendations from Azure's Advisor service</p>
 
@@ -219,7 +219,7 @@ $body += @"
 $HTML = $Head + $body
 
 
-$secret = Get-AzKeyVaultSecret -VaultName '${var.keyvault-name}' -Name 'SGAPICred'
+$secret = Get-AzKeyVaultSecret -VaultName 'kv-coreServices-KJR' -Name 'SGAPICred'
 $pw = $secret.SecretValueText
 $date = Get-Date -Format "dddd dd/MM/yyyy"
 $username="apikey"
@@ -228,4 +228,4 @@ $securePw=ConvertTo-SecureString $pw -AsPlainText -Force
 
 $Cred = New-Object System.Management.Automation.PSCredential ($username, $securePw)
 
-Send-MailMessage -From AzureReports@oneadvanced.com -To ${local.advisor-emails} -Subject "Advanced Azure Report Sub:${data.azurerm_subscription.current.display_name} $date" -Port 587 -UseSSL -SmtpServer smtp.sendgrid.net -Credential $Cred -BodyAsHtml $HTML
+Send-MailMessage -From AzureReports@oneadvanced.com -To ${local.advisor-emails} -Subject "Advanced Azure Report Sub: $sub $date" -Port 587 -UseSSL -SmtpServer smtp.sendgrid.net -Credential $Cred -BodyAsHtml $HTML
